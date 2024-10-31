@@ -1,4 +1,36 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+local util = require 'lspconfig.util'
+
+if true then return {
+  {
+    "AstroNvim/astrolsp",
+    opts = {
+      formatting = {
+        -- control auto formatting on save
+        format_on_save = {
+          -- enable or disable format on save globally
+          enabled = false,
+        },
+      },
+      config = {
+        clangd = {
+          capabilities = {
+            offsetEncoding = "utf-8",
+          },
+          filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' }
+        },
+        bufls = {
+          capabilities = {
+            offsetEncoding = "utf-8",
+          },
+          filetypes = { 'proto' },
+          root_dir = function(fname)
+            return util.root_pattern('buf.work.yaml', '.git', '.arcadia.root')(fname)
+          end
+        },
+      },
+    },
+  },
+} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 
 -- You can also add or configure plugins by creating files in this `plugins/` folder
 -- Here are some examples:
